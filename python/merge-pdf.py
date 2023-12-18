@@ -1,12 +1,20 @@
 # ２つの PDF を結合します
 # pip install pypdf してください
 
-import pypdf
-merger = pypdf.PdfMerger()
-PATH1 = input("PATH1: ")       # 一つ目の PDF のパス
-PATH2 = input("PATH2: ")       # 二つ目の PDF のパス
-PDF_PATH = input("PDF_PATH: ") # 結合した PDF のパス
-merger.append(PATH1)
-merger.append(PATH2)
-merger.write(PDF_PATH)
-merger.close()
+from pypdf import PdfMerger
+
+def merge_pdf(merger: PdfMerger, merge_cnt: int):
+  for i in range(1, merge_cnt + 1):
+    path = input(f"{i}個目のPDFのパス : ")
+    merger.append(path)
+  pdf_path = input("結合したPDFの配置場所 : ")
+  merger.write(pdf_path)
+  merger.close()
+
+def main():
+  merger = PdfMerger()
+  merge_cnt = int(input("結合するPDFの数 : "))
+  merge_pdf(merger, merge_cnt)
+
+if __name__ == "__main__":
+  main()
