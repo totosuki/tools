@@ -11,7 +11,8 @@ def merge_pdf(merger: PdfMerger, merge_cnt: int):
   for i in range(1, merge_cnt + 1):
     path = input(f"{i}個目のPDFのパス : ")
     merger.append(path)
-  pdf_path = input("結合したPDFの配置場所 : ")
+  print("結合したPDFのパスを入力してください。例 : /Users/username/Desktop/test.pdf")
+  pdf_path = input("結合したPDFのパス : ")
   merger.write(pdf_path)
   merger.close()
 
