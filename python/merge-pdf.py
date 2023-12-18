@@ -17,8 +17,16 @@ def merge_pdf(merger: PdfMerger, merge_cnt: int):
 
 def main():
   merger = PdfMerger()
-  merge_cnt = int(input("結合するPDFの数 : "))
-  merge_pdf(merger, merge_cnt)
+  merge_cnt = input("結合するPDFの数 : ")
+  if not merge_cnt:
+    print("結合するPDFの数を入力してください。")
+    exit(0)
+  elif int(merge_cnt) == 0:
+    print("結合するPDFの数が0です。")
+    exit(0)
+  else:
+    print("PDFの結合を開始します。")
+    merge_pdf(merger, int(merge_cnt))
 
 if __name__ == "__main__":
   main()
