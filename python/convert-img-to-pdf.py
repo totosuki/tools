@@ -1,3 +1,6 @@
+# フォルダにある画像を全て結合します
+# pip install img2pdf してください
+
 import os
 
 try:
