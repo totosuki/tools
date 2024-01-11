@@ -1,5 +1,10 @@
-import img2pdf
 import os
+
+try:
+  import img2pdf
+except:
+  print("'img2pdf' がインストールされていません。'pip install img2pdf' してください。")
+  exit(0)
 
 def convert_images_to_pdf(input_folder, output_pdf):
   # input_folderにある画像ファイルをリストアップ
