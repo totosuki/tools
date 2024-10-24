@@ -25,13 +25,19 @@ dict = {
   "tresvigintillion" : 1e72
 }
 
+def insert_comma(num):
+  num = int(num)
+  return "{:,}".format(num)
+
 def main():
   print("単位変換を行います。")
   print("例 : 1 million を 1000000 に変換します。")
   while True:
     num, unit = input("変換する単位 : ").split()
     if unit in dict:
-      print(f"{num} {unit} は {float(num) * dict[unit]} です。")
+      num = float(num) * dict[unit]
+      print(f"桁区切り : {insert_comma(num)}")
+      print(f"指数表記 : {num:.3e}\n です")
     else:
       print("その単位は存在しません。")
     if input("続けますか？(y/n) : ") == "n":
