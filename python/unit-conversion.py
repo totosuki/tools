@@ -25,9 +25,35 @@ dict = {
   "tresvigintillion" : 1e72
 }
 
+jp_dict = {
+  1e4 : "万",
+  1e8 : "億",
+  1e12 : "兆",
+  1e16 : "京",
+  1e20 : "垓",
+  1e24 : "𥝱",
+  1e28 : "穣",
+  1e32 : "溝",
+  1e36 : "澗",
+  1e40 : "正",
+  1e44 : "載",
+  1e48 : "極",
+  1e52 : "恒河沙",
+  1e56 : "阿僧祇",
+  1e60 : "那由他",
+  1e64 : "不可思議",
+  1e68 : "無量大数",
+}
+
 def insert_comma(num):
   num = int(num)
   return "{:,}".format(num)
+
+def convert_jp(num):
+  num = int(num)
+  for key in jp_dict:
+    if num < key * 1000:
+      return f"{num / key:.3f}{jp_dict[key]}"
 
 def main():
   print("単位変換を行います。")
@@ -38,6 +64,7 @@ def main():
       num = float(num) * dict[unit]
       print(f"桁区切り : {insert_comma(num)}")
       print(f"指数表記 : {num:.3e}\n です")
+      print(f"日本語表記 : {convert_jp(num)}")
     else:
       print("その単位は存在しません。")
     if input("続けますか？(y/n) : ") == "n":
