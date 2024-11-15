@@ -19,7 +19,24 @@ function update_cache() {
 function search() {
     # キャッシュが無い場合
     if ! test -f "$JP_CACHE_FILE"; then
-        update_cache
+        echo -e "\033[33mCache does not exist. Do you want to create it now? (y/n)\033[0m"
+
+        # y/n 入力
+        echo -n "Enter your choice : "
+        read -r choice # zsh では p オプションが使えないっぽい
+        case "$choice" in
+            [Yy])
+                update_cache
+                ;;
+            [Nn])
+                echo "Skipping cache creation. Exiting..."
+                return 0
+                ;;
+            *)
+                echo -e "\033[31mInvalid input. Exiting...\033[0m"
+                return 1
+                ;;
+        esac
     fi
 
     target=$(cat "$JP_CACHE_FILE" | fzf-tmux -p 2>/dev/null || fzf)
