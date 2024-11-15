@@ -49,13 +49,31 @@ function search() {
     fi
 }
 
+function show_help() {
+    echo "Usage: jp [OPTIONS]"
+    echo ""
+    echo "Options:"
+    echo "    -u, --update    Update the cache file."
+    echo "    -h, --help      Show this help message."
+    echo ""
+    echo "Description:"
+    echo '    "jp" is a utility to quickly navigate to frequently used directories.'
+    echo '    Use 'fzf' to select a directory from a cached list.'
+}
+
 case "$1" in
-    # キャッシュの更新
-    "update")
+    -u|--update)
         update_cache
         ;;
-    # 通常コマンド
-    *)
+    -h|--help)
+        show_help
+        ;;
+    "")
         search
+        ;;
+    *)
+        echo -e "\033[31mInvalid option: $1\033[0m\n"
+        show_help
+        return 1
         ;;
 esac
