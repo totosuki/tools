@@ -39,8 +39,14 @@ function search() {
         esac
     fi
 
-    target=$(cat "$JP_CACHE_FILE" | fzf-tmux -p 2>/dev/null || fzf)
+    if command -v tmux >/dev/null && tmux info &>/dev/null; then
+        target=$(cat "$JP_CACHE_FILE" | fzf-tmux -p 2>/dev/null)
+    fi
 
+    if [ -z "$target" ]; then
+        target=$(cat "$JP_CACHE_FILE" | fzf)
+    fi
+    
     if test -n "$target"; then
         cd "$target" || { echo "Failed to change directory to $target"; exit 1; }
         echo "Jump to $target"
@@ -53,13 +59,29 @@ function show_help() {
     echo "Usage: jp [OPTIONS]"
     echo ""
     echo "Options:"
-    echo "    -u, --update    Update the cache file."
-    echo "    -h, --help      Show this help message."
+    echo "  -u, --update   Update the cache file."
+    echo "  -h, --help     Show this help message."
     echo ""
     echo "Description:"
-    echo '    "jp" is a utility to quickly navigate to frequently used directories.'
-    echo '    Use 'fzf' to select a directory from a cached list.'
+    echo "  jp is a utility to quickly navigate to frequently used directories."
+    echo "  Use 'fzf' to select a directory from a cached list."
+    echo ""
+    echo "Recommended Software:"
+    echo "  - fd: A faster alternative to 'find' for directory traversal."
+    echo "  - fzf: A command-line fuzzy finder for interactive directory selection."
+    echo "  - tmux: Terminal multiplexer, required for fzf-tmux."
+    echo ""
+    echo "Performance Comparison:"
+    echo "  - fd: Generally faster than 'find' due to optimized implementation."
+    echo "        Example: Updating cache with 'fd' might take ~1 second."
+    echo "  - find: Slower, but works universally. Example: Updating cache with 'find' might take 5-10 seconds."
+    echo ""
+    echo "Additional Notes:"
+    echo "  - jp automatically detects whether 'fzf-tmux' can be used."
+    echo "    If 'fzf-tmux' is unavailable or fails, 'fzf' will be used as a fallback."
+    echo "  - To use 'fzf-tmux', ensure tmux is installed and you are in an active tmux session."
 }
+
 
 case "$1" in
     -u|--update)
