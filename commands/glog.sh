@@ -9,6 +9,32 @@ fi
 val=$(<"$config_file_path")
 desc_mode=false
 
+print_help() {
+  echo "glog - a simple wrapper for frequently-used git log options"
+  echo
+  echo "Usage:"
+  echo "  glog [<number-of-commits>] [-d|--desc]"
+  echo "  glog -s|--set <number-of-commits>"
+  echo
+  echo "Options:"
+  echo "  [number]         Temporarily override the default number of commits to show."
+  echo "                   Defaults to the saved value (initial default: 5)."
+  echo
+  echo "  -d, --desc       Include the commit body (description) in the log output."
+  echo
+  echo "  -s, --set <num>  Set the default number of commits to show in future glog runs."
+  echo "                   This value is stored at: $config_file_path"
+  echo
+  echo "  -h, --help       Show this help message."
+  echo
+  echo "Examples:"
+  echo "  glog              # Show default number of commits"
+  echo "  glog 10           # Show 10 commits"
+  echo "  glog --desc       # Show default number of commits with body"
+  echo "  glog 20 -d        # Show 20 commits with body"
+  echo "  glog --set 15     # Change default to 15 commits"
+}
+
 # 引数処理
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -24,6 +50,10 @@ while [ $# -gt 0 ]; do
       ;;
     -d|--desc)
       desc_mode=true
+      ;;
+    -h|--help)
+      print_help
+      exit 0
       ;;
     [0-9]*)
       val="$1"
