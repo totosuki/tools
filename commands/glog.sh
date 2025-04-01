@@ -38,7 +38,7 @@ done
 
 # 出力
 if $desc_mode; then
-  git log --graph -$val --pretty="作成日: %Cblue %ci%Creset%Creset 作成者: %Cblue%an%Creset %Cred%d%Creset%n%Cgreen%t%Creset >> %s%n%n           %b%n"
+  git log --graph -$val --pretty="作成日: %Cblue %ci%Creset%Creset 作成者: %Cblue%an%Creset %Cred%d%Creset%n%Cgreen%t%Creset >> %s%n           %b%n"
 else
   git log --graph -$val --pretty="作成日: %Cblue %ci%Creset%Creset 作成者: %Cblue%an%Creset %Cred%d%Creset%n%Cgreen%t%Creset >> %s%n"
 fi
