@@ -11,7 +11,7 @@ except:
 
 def convert_images_to_pdf(input_folder, output_pdf):
   # input_folderにある画像ファイルをリストアップ
-  img_files = [f for f in os.listdir(input_folder) if f.endswith(('.png', '.jpg', '.jpeg', '.JPG', '.JPEG', '.PNG'))]
+  img_files = [f for f in os.listdir(input_folder) if f.endswith(('.png', '.jpg', '.jpeg', '.JPG', '.JPEG', '.PNG', '.webp'))]
 
   # 画像ファイルをimg2pdfを使用してPDFに変換
   with open(output_pdf, "wb") as file:
